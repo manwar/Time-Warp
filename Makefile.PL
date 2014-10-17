@@ -4,6 +4,7 @@ require 5.006;
 
 my %conf = (
 	NAME => 'Time::Warp',
+	AUTHOR => 'Joshua Nathaniel Pritikin <jpritikin@pobox.com>',
 	VERSION_FROM => 'Warp.pm',
 	ABSTRACT_FROM => 'Warp.pm',
 	LICENSE => 'perl',

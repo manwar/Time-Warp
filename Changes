@@ -1,5 +1,5 @@
 
-0.51
+0.51 2014-10-17
     New maintainer (SZABGAB)
     Use Test::More instead of Test
     Include META.yml RT #77752
