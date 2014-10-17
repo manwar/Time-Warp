@@ -1,7 +1,0 @@
-MANIFEST
-MANIFEST.SKIP
-Makefile.PL
-README
-Warp.pm
-Warp.xs
-t/when.t
