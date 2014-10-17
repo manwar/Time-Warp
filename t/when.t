@@ -1,8 +1,10 @@
-#!./perl -w
+use strict;
+use warnings;
+
 
 # These tests may occationally fail due to small timing differences.
 
-use Test; plan test => 8;
+use Test::More tests => 8;
 {
     local $SIG{__WARN__} = sub {
 	if ($_[0] =~ /Time::HiRes/) {
@@ -15,19 +17,19 @@ use Test; plan test => 8;
 }
 Time::Warp->import(qw(time to scale));
 ok 1;
-ok &scale, 1;
+is scale(), 1;
 
 scale(2);
-ok &scale, 2;
+is &scale, 2;
 my $now = &time;
 sleep 2;
-ok(&time - $now, 4);
+is(&time - $now, 4);
 
 to(CORE::time);
-ok(&time - CORE::time, 0);
+is(&time - CORE::time, 0);
 
 scale(scale() * 2);
-ok(&time - CORE::time, 0);
+is(&time - CORE::time, 0);
 
 Time::Warp::reset(); to(&time + 5);
-ok(&time - CORE::time, 5);
+is(&time - CORE::time, 5);
