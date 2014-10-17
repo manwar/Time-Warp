@@ -2,10 +2,11 @@ use ExtUtils::MakeMaker;
 
 require 5.006;
 
-my %hash = (
+my %conf = (
 	NAME => 'Time::Warp',
 	VERSION_FROM => 'Warp.pm',
 	ABSTRACT_FROM => 'Warp.pm',
+	LICENSE => 'perl',
 	OBJECT => 'Warp.o',
 	OPTIMIZE => '-g',
 	PREREQ_PM    => {
@@ -13,4 +14,22 @@ my %hash = (
 	},
 );
 
-WriteMakefile(%hash);
+if (eval { ExtUtils::MakeMaker->VERSION(6.46) }) {
+	$conf{META_MERGE} = {
+		'meta-spec' => { version => 2 },
+		resources => {
+			repository => {
+				type       => 'git',
+				url        => 'http://github.com/szabgab/Time-Warp.git',
+				web        => 'http://github.com/szabgab/Time-Warp',
+				license    => 'http://dev.perl.org/licenses/',
+			},
+			bugtracker => {
+				web        => 'http://github.com/szabgab/Time-Warp',
+			},
+		},
+	};
+}
+
+
+WriteMakefile(%conf);
