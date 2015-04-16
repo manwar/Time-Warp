@@ -14,7 +14,7 @@ extern "C" {
 
 /* Is time() portable everywhere?  Hope so!  XXX */
 
-static double fallback_NVtime()
+static NV fallback_NVtime()
 { return time(0); }
 
 static void fallback_U2time(U32 *ret)
@@ -26,7 +26,7 @@ static void fallback_U2time(U32 *ret)
 /*-----------------*/
 
 static int    Installed=0;
-static double (*realNVtime)();
+static NV (*realNVtime)();
 static void   (*realU2time)(U32 *);
 
 static double Lost;    /** time relative to now */
@@ -42,7 +42,7 @@ static void reset_warp()
 
 /*-----------------*/
 
-static double warped_NVtime()
+static NV warped_NVtime()
 {
     double now = (*realNVtime)() - Lost;
     double delta = now - Zero;
@@ -84,7 +84,7 @@ install_time_api()
     }
     svp = hv_fetch(PL_modglobal, "Time::NVtime", 12, 0);
     if (!SvIOK(*svp)) croak("Time::NVtime isn't a function pointer");
-    realNVtime = (double(*)()) SvIV(*svp);
+    realNVtime = (NV(*)()) SvIV(*svp);
     svp = hv_fetch(PL_modglobal, "Time::U2time", 12, 0);
     if (!SvIOK(*svp)) croak("Time::U2time isn't a function pointer");
     realU2time = (void(*)(U32*)) SvIV(*svp);
